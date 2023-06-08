@@ -30,7 +30,7 @@ program looping_over_types
 
     integer, parameter :: nx   = 36
     integer, parameter :: ny   = 72
-    integer, parameter :: nmax = 100
+    integer, parameter :: nmax = 500
 
     integer, parameter :: niter = 100
 
@@ -85,7 +85,7 @@ program looping_over_types
     dtime_ttc = (end_time - start_time)
     
     write(*,"(a,a8,a1,g14.3,a2)") "Time using: ", "arrays",  ":", dtime_tta, "s"
-    write(*,"(a,a8,a1,g14.3,a2)") "Time using: ", "columns", ":", dtime_tta, "s"
+    write(*,"(a,a8,a1,g14.3,a2)") "Time using: ", "columns", ":", dtime_ttc, "s"
     
 contains
 

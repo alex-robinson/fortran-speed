@@ -18,11 +18,11 @@ gfortran looping_over_types.f90
 Example output:
 
 ```
-Time using:   arrays:      1.30     s
-Time using:  columns:      1.30     s
+Time using:   arrays:      1.21     s
+Time using:  columns:      1.05     s
 ```
 
 Conclusions
 
-- gfortran 12.2.0: both methods give the same computational speed.
-- ifort 19.1.3.304: both methods give the same computational speed.
+- gfortran 12.2.0: columns inside derived type runs slightly faster.
+- ifort 19.1.3.304: to do.
