@@ -24,5 +24,5 @@ Time using:  columns:      1.30     s
 
 Conclusions
 
-gfortran 12.2.0: both methods give the same computational speed.
-ifort 19.1.3.304: both methods give the same computational speed.
+- gfortran 12.2.0: both methods give the same computational speed.
+- ifort 19.1.3.304: both methods give the same computational speed.
