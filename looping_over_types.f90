@@ -31,11 +31,10 @@ program looping_over_types
     integer, parameter :: nx   = 36
     integer, parameter :: ny   = 72
     integer, parameter :: nmax = 100
-    
+
     integer, parameter :: niter = 100
 
     type(test_class_arrays) :: tta
-    type(test_class_cols)   :: ttc
     type(test_class_cols), allocatable :: ttc2D(:,:)
     
     real(8) :: start_time
@@ -46,17 +45,13 @@ program looping_over_types
     ! Allocate test derived type (arrays)
     call test_class_arrays_alloc(tta,nx,ny,nmax)
 
-    ! Allocate test derived type (1D column)
-    call test_class_cols_alloc(ttc,nmax)
-
     ! Allocate test derived type (2D array of derived types)
     allocate(ttc2D(nx,ny))
-    do i = 1, nx 
     do j = 1, ny 
+    do i = 1, nx 
         call test_class_cols_alloc(ttc2D(i,j),nmax)
     end do
     end do 
-
 
     ! ==== Now perform some computation tests ============================
 
