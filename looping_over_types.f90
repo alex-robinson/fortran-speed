@@ -30,7 +30,7 @@ program looping_over_types
 
     integer, parameter :: nx   = 36
     integer, parameter :: ny   = 72
-    integer, parameter :: nmax = 500
+    integer, parameter :: nmax = 100
 
     integer, parameter :: niter = 100
 

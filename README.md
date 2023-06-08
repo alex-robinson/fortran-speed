@@ -25,4 +25,4 @@ Time using:  columns:      1.05     s
 Conclusions
 
 - gfortran 12.2.0: columns inside derived type runs slightly faster.
-- ifort 19.1.3.304: to do.
+- ifort 19.1.3.304: columns inside derived type runs slightly faster.
