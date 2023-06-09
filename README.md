@@ -29,6 +29,19 @@ Time using:  columns:      2.08     s
 Time using:   points:      1.99     s
 ```
 
+However, using different compiler flags can change the comparison:
+
+```
+gfortran -O3 -flto -march=native looping_over_types.f90
+./a.out
+```
+
+```
+Time using:   arrays:      1.90     s
+Time using:  columns:      1.53     s
+Time using:   points:      1.53     s
+```
+
 Conclusions
 
 *gfortran 12.2.0, ifort 19.1.3.304*
@@ -38,3 +51,4 @@ using a 2D array of derived types with a column vector inside,
 and the fastest is actually to use a 3D array of derived types
 with points inside.
 
+The right compiler flags can greatly reduce differences between these methods.
