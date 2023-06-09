@@ -26,22 +26,33 @@ program looping_over_types
         real(wp), allocatable :: var6(:)
     end type
 
+    type test_class_pts
+        real(wp) :: var1
+        real(wp) :: var2
+        real(wp) :: var3
+        real(wp) :: var4
+        real(wp) :: var5
+        real(wp) :: var6
+    end type
+
     integer :: i, j, k, q
 
     integer, parameter :: nx   = 36
     integer, parameter :: ny   = 72
     integer, parameter :: nmax = 100
 
-    integer, parameter :: niter = 100
+    integer, parameter :: niter = 200
 
     type(test_class_arrays) :: tta
     type(test_class_cols), allocatable :: ttc2D(:,:)
+    type(test_class_pts),  allocatable :: ttp3D(:,:,:)
     
     real(8) :: start_time
     real(8) :: end_time
     real(8) :: dtime_tta
     real(8) :: dtime_ttc
-    
+    real(8) :: dtime_ttp
+
     ! Allocate test derived type (arrays)
     call test_class_arrays_alloc(tta,nx,ny,nmax)
 
@@ -52,6 +63,9 @@ program looping_over_types
         call test_class_cols_alloc(ttc2D(i,j),nmax)
     end do
     end do 
+
+    ! Allocate test derived type (3D array of derived types)
+    allocate(ttp3D(nx,ny,nmax))
 
     ! ==== Now perform some computation tests ============================
 
@@ -80,13 +94,32 @@ program looping_over_types
 
     end do
 
-
     call cpu_time(end_time)
     dtime_ttc = (end_time - start_time)
     
+    ! Test using derived type points
+
+    call cpu_time(start_time)
+
+    do q = 1, niter
+
+        do k = 1, nmax
+        do j = 1, ny 
+        do i = 1, nx
+            call test_class_pts_update(ttp3D(i,j,k))
+        end do
+        end do 
+        end do 
+
+    end do
+
+    call cpu_time(end_time)
+    dtime_ttp = (end_time - start_time)
+
     write(*,"(a,a8,a1,g14.3,a2)") "Time using: ", "arrays",  ":", dtime_tta, "s"
     write(*,"(a,a8,a1,g14.3,a2)") "Time using: ", "columns", ":", dtime_ttc, "s"
-    
+    write(*,"(a,a8,a1,g14.3,a2)") "Time using: ", "points",  ":", dtime_ttp, "s"
+
 contains
 
     subroutine compute_something(var1,var2,var3,var4,var5,var6)
@@ -150,6 +183,20 @@ contains
         return
 
     end subroutine test_class_cols_update
+
+    subroutine test_class_pts_update(tt)
+        
+        implicit none
+
+        type(test_class_pts), intent(INOUT) :: tt
+
+ 
+        call compute_something(tt%var1,tt%var2,tt%var3, &
+                                    tt%var4,tt%var5,tt%var6)
+
+        return
+
+    end subroutine test_class_pts_update
 
     subroutine test_class_arrays_alloc(tt,nx,ny,n)
         
